@@ -1,0 +1,71 @@
+import random
+import colorama
+from colorama import Fore
+
+a = ('''
+Oops try again
+''')
+b = ('''
+Wrong again? Try again
+''')
+c =  ('''
+Are you even trying
+''')
+d = ('''
+Your about to lose the game
+''')
+e = ('''
+And you just lost maybe next time
+''')
+
+print('We will now play Hangman.')
+print('You will have 6 chances to try and guess the secret word')
+
+myList =["hello", "world", "time", "hangman", "game", "awkward", "dwarves", "fishhook", "haiku", "jukebox","pixel", "soccer", "school", "CAMS"]
+
+word=str()
+word = random.shuffle(myList)
+word=random.choice(myList)
+
+guesses = ''
+
+turns = 6
+
+already_used = []
+print(already_used)
+while turns > 0:        
+    wrong = 0   
+    for char in word:  
+        if char in guesses:    
+            print (char)
+        else:
+            print ("_"),     
+            wrong += 1    
+    if wrong == 0:        
+        print (Fore.CYAN, "Good job you won! Press run to play again.")  
+        break              
+    print
+    guess = input("guess a character:") 
+    guesses += guess 
+
+    if guess not in word: 
+      if guess in already_used:
+        print("already guessed")
+      else: 
+        already_used.append(guess)
+        print (already_used)
+        turns -= 1        
+        if turns == 5:
+          print (Fore.RED, a)
+        elif turns == 4:
+          print (Fore.RED, b)
+        elif turns == 3:
+          print (Fore.RED, c)
+        elif turns == 2:
+          print (Fore.RED, d)
+        elif turns == 1:
+          print (Fore.RED, e)   
+        print (Fore.WHITE, "You have", + turns, 'more guesses') 
+        if turns == 0:           
+            print ("You Lost")  
+            print ("The word was %s ." %(word))
